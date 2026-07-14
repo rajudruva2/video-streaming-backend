@@ -3,6 +3,7 @@ package com.videomoderation.video_moderation_service.serviceImpl;
 import com.videomoderation.video_moderation_service.client.ModerationClient;
 import com.videomoderation.video_moderation_service.decision.DecisionEngine;
 import com.videomoderation.video_moderation_service.enums.VideoStatus;
+import com.videomoderation.video_moderation_service.exception.ModerationException;
 import com.videomoderation.video_moderation_service.model.ModerationResult;
 import com.videomoderation.video_moderation_service.entity.Video;
 import com.videomoderation.video_moderation_service.model.VideoModerationResult;
@@ -58,7 +59,7 @@ public class FrameModerationServiceImpl implements FrameModerationService {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException("Unable to read frame directory", e);
+            throw new ModerationException("Unable to read frame directory", e);
         }
 
         return new VideoModerationResult(

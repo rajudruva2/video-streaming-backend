@@ -2,6 +2,7 @@ package com.videomoderation.video_moderation_service.serviceImpl;
 
 import com.videomoderation.video_moderation_service.config.AppProperties;
 import com.videomoderation.video_moderation_service.entity.Video;
+import com.videomoderation.video_moderation_service.exception.FrameExtractionException;
 import com.videomoderation.video_moderation_service.service.FrameExtractorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,15 +17,15 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 @Slf4j
 public class FrameExtractorServiceImpl implements FrameExtractorService {
+
     private final AppProperties appProperties;
 
     @Override
-    public Path extractFrames(Video video) {
+    public Path extractFrames(Video video, Path localVideo) {
         try {
 
             Path frameDirectory = Paths.get(
-                    appProperties.getUploadPath(),
-                    "frames",
+                    appProperties.getFramePath(),
                     video.getId().toString()
             );
 
@@ -36,7 +37,7 @@ public class FrameExtractorServiceImpl implements FrameExtractorService {
 
                     "-i",
 
-                    video.getFilePath(),
+                    localVideo.toString(),
 
                     "-vf",
 
@@ -54,7 +55,7 @@ public class FrameExtractorServiceImpl implements FrameExtractorService {
 
             if (exitCode != 0) {
 
-                throw new RuntimeException("FFmpeg failed with exit code " + exitCode);
+                throw new FrameExtractionException("FFmpeg failed with exit code " + exitCode);
 
             }
 
@@ -64,9 +65,8 @@ public class FrameExtractorServiceImpl implements FrameExtractorService {
 
         } catch (IOException | InterruptedException e) {
 
-            throw new RuntimeException("Frame extraction failed", e);
+            throw new FrameExtractionException("Frame extraction failed", e);
 
         }
-
     }
 }

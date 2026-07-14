@@ -6,5 +6,5 @@ import java.nio.file.Path;
 
 public interface FrameExtractorService {
 
-    Path extractFrames(Video video);
+    Path extractFrames(Video video, Path localVideo);
 }

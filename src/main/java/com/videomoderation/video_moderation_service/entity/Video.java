@@ -33,6 +33,15 @@ public class Video {
     @Column(nullable = false)
     private VideoStatus status;
 
+    @Column(name = "moderation_reason")
+    private String moderationReason;
+
+    @Column(name = "rejected_frame")
+    private String rejectedFrame;
+
+    @Column(name = "processed_at")
+    private LocalDateTime processedAt;
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
 

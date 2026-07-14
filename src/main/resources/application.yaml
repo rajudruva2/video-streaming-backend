@@ -22,6 +22,12 @@ spring:
       max-file-size: 500MB
       max-request-size: 500MB
 
+aws:
+    region: us-east-1
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
+    bucket-name: streaming-video-bucket-00
+
 app:
   upload-path: ./uploads/videos
   frame-path: ./uploads/frames
