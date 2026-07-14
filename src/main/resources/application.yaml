@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: video-moderation-service
+
+  datasource:
+    url: jdbc:postgresql://100.31.100.23:5432/streamnest
+    username: streamnest_user
+    password: StrongPassword@123
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+
+    properties:
+      hibernate:
+        format_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+app:
+  upload-path: ./uploads/videos
+  frame-path: ./uploads/frames
+  ffmpeg-path: ./ffmpeg/bin/ffmpeg.exe
